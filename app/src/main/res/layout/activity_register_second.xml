@@ -52,49 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView">
 
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_1"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fun" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_2"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Culture" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_3"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gaming" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_4"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Meow" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_5"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Career" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_6"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Leadership" />
-
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
@@ -121,49 +78,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView2">
-
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r1"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetarian" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r2"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegan" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r3"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hahal" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r4"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dairy-Free" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r5"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gluten-Free" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r6"
-            style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nut-Free" />
 
     </com.google.android.material.chip.ChipGroup>
 

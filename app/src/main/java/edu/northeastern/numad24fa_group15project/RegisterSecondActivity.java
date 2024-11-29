@@ -1,38 +1,87 @@
 package edu.northeastern.numad24fa_group15project;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import edu.northeastern.numad24fa_group15project.controllers.ChipGroupManager;
+import edu.northeastern.numad24fa_group15project.controllers.UserManager;
+import edu.northeastern.numad24fa_group15project.models.User;
 
 public class RegisterSecondActivity extends AppCompatActivity {
+
+
+    private UserManager  userManager;
+    private ChipGroupManager chipGroupManager;
+
+    private TextInputLayout registerSchool;
+    private ChipGroup chipGroupInterests, chipGroupDietRes;
+    Button registerConfirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register_second);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        userManager = UserManager.getInstance();
+
+        registerSchool = findViewById(R.id.registerSchool);
+        chipGroupInterests = findViewById(R.id.chipGroupInterests);
+        chipGroupDietRes = findViewById(R.id.chipGroupDietRes);
+        registerConfirmButton = findViewById(R.id.registerConfirmButton);
+
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) registerSchool.getEditText();
+        String[] schools = getResources().getStringArray(R.array.schools);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, schools);
+        autoCompleteTextView.setAdapter(adapter);
+
+        chipGroupManager = new ChipGroupManager(this);
+
+        String[] interests = getResources().getStringArray(R.array.interests);
+        String[] dietaryRestrictions = getResources().getStringArray(R.array.diets);
+
+        chipGroupManager.createChips(chipGroupInterests, ChipGroupManager.ChipGroupType.INTERESTS, interests);
+        chipGroupManager.createChips(chipGroupDietRes, ChipGroupManager.ChipGroupType.DIETARY_RESTRICTIONS, dietaryRestrictions);
+
+        registerConfirmButton.setOnClickListener(v -> updateUserPreferences());
+    }
+
+    private void updateUserPreferences() {
+        String school = Objects.requireNonNull(registerSchool.getEditText()).getText().toString().trim();
+        Map<String, List<String>> allSelections = chipGroupManager.getAllSelections();
+
+        Map<String, Object> additionalInfo = new HashMap<>();
+        additionalInfo.put("school", school);
+        additionalInfo.put("interests", allSelections.get("interests"));
+        additionalInfo.put("dietaryRestrictions", allSelections.get("dietary_restrictions"));
+
+        userManager.updateUserData(additionalInfo, new UserManager.OnUserUpdateListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(RegisterSecondActivity.this, "Setup complete!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterSecondActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Log.v("FIRESTORE", error);
+                Toast.makeText(RegisterSecondActivity.this, "Failed to save user info: " + error, Toast.LENGTH_SHORT).show();
+            }
         });
-
-        TextInputLayout textField = findViewById(R.id.registerSchool);
-        MaterialAutoCompleteTextView autoCompleteTextView = (MaterialAutoCompleteTextView) textField.getEditText();
-        if (autoCompleteTextView != null) {
-            String[] items = {"Item 1", "Item 2", "Item 3", "Item 4"};
-            autoCompleteTextView.setSimpleItems(items);
-        }
-
     }
 }

@@ -1,5 +1,6 @@
 package edu.northeastern.numad24fa_group15project;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -8,7 +9,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import edu.northeastern.numad24fa_group15project.controllers.UserManager;
+
 public class HomeActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,14 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
 
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(v -> logoutUser());
+    }
 
+    private void logoutUser() {
+        UserManager.getInstance().logoutUser();
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
