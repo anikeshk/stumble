@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         userManager = UserManager.getInstance();
 
         if (userManager.isUserLoggedIn()) {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            Intent intent = new Intent(MainActivity.this, BaseActivity.class);
             startActivity(intent);
             finish();
         }

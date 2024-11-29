@@ -73,7 +73,7 @@ public class RegisterSecondActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 Toast.makeText(RegisterSecondActivity.this, "Setup complete!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterSecondActivity.this, HomeActivity.class);
+                Intent intent = new Intent(RegisterSecondActivity.this, BaseActivity.class);
                 startActivity(intent);
             }
 
