@@ -22,13 +22,14 @@ import edu.northeastern.numad24fa_group15project.activities.MainActivity;
 import edu.northeastern.numad24fa_group15project.adapters.HomeListAdapter;
 import edu.northeastern.numad24fa_group15project.controllers.UserManager;
 import edu.northeastern.numad24fa_group15project.models.Event;
+import edu.northeastern.numad24fa_group15project.viewmodels.MyEventsViewModel;
 import edu.northeastern.numad24fa_group15project.viewmodels.StumbleViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyEventsFragment extends Fragment {
-    private StumbleViewModel viewModel;
+    private MyEventsViewModel myEventsViewModel;
     private TabLayout tabLayout;
 
     private HomeListAdapter homeListAdapter;
@@ -49,8 +50,7 @@ public class MyEventsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(StumbleViewModel.class);
-
+        myEventsViewModel = new ViewModelProvider(this).get(MyEventsViewModel.class);
 
         myEventsRecyclerView = view.findViewById(R.id.my_events_recycler_view);
         myEventsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -58,38 +58,14 @@ public class MyEventsFragment extends Fragment {
         homeListAdapter = new HomeListAdapter();
         myEventsRecyclerView.setAdapter(homeListAdapter);
 
-        viewModel.getEvents().observe(getViewLifecycleOwner(), events -> {
+        myEventsViewModel.getTicketEvents().observe(getViewLifecycleOwner(), events -> {
             homeListAdapter.setEvents(events);
         });
-        viewModel.loadEvents();
+
+        myEventsViewModel.loadTicketEvents();
 
         homeListAdapter.setOnItemClickListener(event -> {
             openEventDetails(event);
-        });
-
-        tabLayout = view.findViewById(R.id.my_events_tab_layout);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0 ) {
-//                    viewModel.getEvents().observe(getViewLifecycleOwner(), events -> {
-//                        homeListAdapter.setEvents(events);
-//                    });
-                    Log.v("ME", "MyEvents:Tickets!!!!!!!!!!!");
-                } else {
-//                    viewModel.getEvents().observe(getViewLifecycleOwner(), events -> {
-//                        events.clear();
-//                        homeListAdapter.setEvents(events);
-//                    });
-                    Log.v("ME", "MyEvents:Saved!!!!!!!!!!!");
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
     }

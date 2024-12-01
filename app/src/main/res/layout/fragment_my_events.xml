@@ -19,30 +19,9 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/top_app_bar"
-            app:title="My Events" />
+            app:title="My Tickets" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/my_events_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_events_app_bar"
-        app:tabMode="fixed">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tickets" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Saved" />
-
-    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_events_recycler_view"

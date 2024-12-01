@@ -35,7 +35,7 @@ public class UserManager {
                         if (firebaseUser != null) {
                             String uid = firebaseUser.getUid();
                             currentUser = new User();
-                            currentUser.setUid(uid);
+                            currentUser.setId(uid);
                             currentUser.setEmail(email);
                             db.collection("users").document(uid)
                                     .set(new HashMap<>())
@@ -86,12 +86,12 @@ public class UserManager {
     }
 
     public void updateUserData(Map<String, Object> data, final OnUserUpdateListener listener) {
-        if (currentUser == null || currentUser.getUid() == null) {
+        if (currentUser == null || currentUser.getId() == null) {
             listener.onFailure("No user logged in");
             return;
         }
 
-        db.collection("users").document(currentUser.getUid())
+        db.collection("users").document(currentUser.getId())
                 .update(data)
                 .addOnSuccessListener(aVoid -> {
                     currentUser.updateFromMap(data);

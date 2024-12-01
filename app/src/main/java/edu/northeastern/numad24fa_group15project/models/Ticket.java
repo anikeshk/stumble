@@ -6,16 +6,16 @@ public class Ticket {
     private String id;
     private String userId;
     private String eventId;
-    private Timestamp createdDate;
+    private Timestamp createdAt;
 
     public Ticket() {}
 
-    public Timestamp getCreatedDate() {
-        return createdDate;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getEventId() {

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class User implements Serializable {
 
-    private String uid;
+    private String id;
     private String email;
     private String password;
     private String firstName;
@@ -17,12 +17,12 @@ public class User implements Serializable {
     private List<String> interests;
     private List<String> dietaryRestrictions;
 
-    public String getUid() {
-        return uid;
+    public String getId() {
+        return id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -100,7 +100,7 @@ public class User implements Serializable {
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("uid", uid);
+        map.put("id", id);
         map.put("email", email);
         map.put("password", password);
         map.put("firstName", firstName);
