@@ -24,6 +24,7 @@ import edu.northeastern.numad24fa_group15project.adapters.HomeCarouselAdapter;
 import edu.northeastern.numad24fa_group15project.adapters.HomeListAdapter;
 import edu.northeastern.numad24fa_group15project.controllers.UserManager;
 import edu.northeastern.numad24fa_group15project.models.Event;
+import edu.northeastern.numad24fa_group15project.viewmodels.HomeViewModel;
 import edu.northeastern.numad24fa_group15project.viewmodels.StumbleViewModel;
 
 /**
@@ -31,6 +32,7 @@ import edu.northeastern.numad24fa_group15project.viewmodels.StumbleViewModel;
  */
 public class HomeFragment extends Fragment {
     private StumbleViewModel viewModel;
+    private HomeViewModel homeViewModel;
 
     private HomeCarouselAdapter homeCarouselAdapter;
     private RecyclerView carouselRecyclerView;
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(StumbleViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         carouselRecyclerView = view.findViewById(R.id.carousel_recycler_view);
         carouselRecyclerView.setLayoutManager(new CarouselLayoutManager(new HeroCarouselStrategy()));
@@ -74,10 +77,14 @@ public class HomeFragment extends Fragment {
         listRecyclerView.setAdapter(homeListAdapter);
 
         viewModel.getEvents().observe(getViewLifecycleOwner(), events -> {
-            homeCarouselAdapter.setEvents(events);
             homeListAdapter.setEvents(events);
         });
         viewModel.loadEvents();
+
+        homeViewModel.getRecommendedEvents().observe(getViewLifecycleOwner(), events -> {
+            homeCarouselAdapter.setEvents(events);
+        });
+        homeViewModel.loadRecommendedEvents();
 
         homeCarouselAdapter.setOnItemClickListener(event -> {
             openEventDetails(event);

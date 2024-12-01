@@ -56,19 +56,5 @@ public class StumbleViewModel extends ViewModel {
                 });
     }
 
-    public void loadTickets() {
-        isLoading.setValue(true);
-        eventRepository.getAllTickets()
-                .addOnSuccessListener(querySnapshot -> {
-                    List<Event> eventList = querySnapshot.toObjects(Event.class);
-                    Log.v("MEGfdssdsdsGGGGGGG", eventList.toString());
-                    events.setValue(eventList);
-                    isLoading.setValue(false);
-                })
-                .addOnFailureListener(e -> {
-                    isLoading.setValue(false);
-                });
-    }
-
 
 }

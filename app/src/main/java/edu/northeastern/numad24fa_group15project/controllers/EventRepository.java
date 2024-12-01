@@ -1,15 +1,21 @@
 package edu.northeastern.numad24fa_group15project.controllers;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import edu.northeastern.numad24fa_group15project.models.Event;
 import edu.northeastern.numad24fa_group15project.models.Ticket;
+import edu.northeastern.numad24fa_group15project.models.User;
 
 public class EventRepository {
 
@@ -17,10 +23,12 @@ public class EventRepository {
     private static final String TICKETS_COLLECTION = "tickets";
     private static final String SAVED_COLLECTION = "saved";
     private final FirebaseFirestore db;
+    private User user;
 
 
     public EventRepository() {
         this.db = FirebaseFirestore.getInstance();
+        this.user = UserManager.getInstance().getCurrentUser();
     }
 
     public Task<QuerySnapshot> getAllEvents() {
@@ -31,36 +39,10 @@ public class EventRepository {
         return db.collection(SAVED_COLLECTION).get();
     }
 
-    public Task<QuerySnapshot> getAllTickets() {
-        Task<QuerySnapshot> ticketsTask = db.collection("tickets")
-                //.whereEqualTo("userId", userId)
-                .get();
-
-
-        return ticketsTask.continueWithTask(task -> {
-            if (!task.isSuccessful()) {
-                throw task.getException();
-            }
-
-            List<String> eventIds = new ArrayList<>();
-            for (QueryDocumentSnapshot document : task.getResult()) {
-                Ticket ticket = document.toObject(Ticket.class);
-                eventIds.add(ticket.getEventId());
-            }
-
-            // Query events using the collected eventIds
-            return db.collection("events")
-                    .whereIn(FieldPath.documentId(), eventIds)
-                    .get();
-        });
+    public Task<QuerySnapshot> getRecommendedEvents() {
+        Query query = db.collection(EVENTS_COLLECTION)
+                .whereEqualTo("isRecommended", true);
+        return query.get();
     }
-
-
-
-
-//    make this book ticket/save event
-//    public Task<Void> createUserEvent(Ticket ticket) {
-//        return db.collection(TICKETS_COLLECTION).document(ticket.getId()).set(ticket);
-//    }
 
 }
