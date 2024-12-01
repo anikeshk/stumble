@@ -12,9 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 
 import edu.northeastern.numad24fa_group15project.R;
@@ -30,7 +34,6 @@ import edu.northeastern.numad24fa_group15project.viewmodels.StumbleViewModel;
  */
 public class MyEventsFragment extends Fragment {
     private MyEventsViewModel myEventsViewModel;
-    private TabLayout tabLayout;
 
     private HomeListAdapter homeListAdapter;
     private RecyclerView myEventsRecyclerView;
@@ -67,6 +70,18 @@ public class MyEventsFragment extends Fragment {
         homeListAdapter.setOnItemClickListener(event -> {
             openEventDetails(event);
         });
+
+        MaterialToolbar toolbar = view.findViewById(R.id.my_events_tool_bar);
+        toolbar.setOnMenuItemClickListener(menuItem -> {
+
+            if (menuItem.getItemId() == R.id.top_bar_logout) {
+                logoutUser();
+                return true;
+            } else {
+                return false;
+            }
+        });
+
 
     }
 

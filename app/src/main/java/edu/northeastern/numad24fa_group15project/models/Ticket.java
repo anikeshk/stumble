@@ -2,6 +2,8 @@ package edu.northeastern.numad24fa_group15project.models;
 
 import com.google.firebase.Timestamp;
 
+import java.util.Date;
+
 public class Ticket {
     private String id;
     private String userId;

@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import edu.northeastern.numad24fa_group15project.R;
+import edu.northeastern.numad24fa_group15project.activities.RegisterSecondActivity;
+import edu.northeastern.numad24fa_group15project.controllers.EventRepository;
 import edu.northeastern.numad24fa_group15project.models.Event;
 
 public class EventDetailsFragment extends Fragment {
@@ -21,8 +25,7 @@ public class EventDetailsFragment extends Fragment {
     public static EventDetailsFragment newInstance(Event event) {
         EventDetailsFragment fragment = new EventDetailsFragment();
         Bundle args = new Bundle();
-        // maybe make parseable
-        args.putString(ARG_EVENT, event.getTitle());
+        args.putParcelable(ARG_EVENT, event);
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,7 +34,7 @@ public class EventDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            eventTitle = getArguments().getString(ARG_EVENT);
+            event = getArguments().getParcelable(ARG_EVENT);
         }
     }
 
@@ -39,16 +42,27 @@ public class EventDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_stumble_event, container, false);
 
+        EventRepository eventRepository = new EventRepository();
+
         // Populate views with event details
         TextView titleView = view.findViewById(R.id.stumble_event_title);
-        titleView.setText(eventTitle);
+        titleView.setText(event.getTitle());
+
+        TextView desc = view.findViewById(R.id.stumble_event_description);
+        desc.setText(event.getDescription());
 
 //        // ... set other event details ...
 //
-//        Button registerButton = view.findViewById(R.id.register_button);
-//        registerButton.setOnClickListener(v -> {
-//            // Handle registration logic
-//        });
+        Button registerButton = view.findViewById(R.id.stumble_event_register_button);
+        registerButton.setOnClickListener(v -> {
+            eventRepository.bookTicket(event.getId())
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(getActivity(), "Ticket booked!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+
+                    });
+        });
 
         return view;
     }
