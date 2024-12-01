@@ -1,4 +1,4 @@
-package edu.northeastern.numad24fa_group15project;
+package edu.northeastern.numad24fa_group15project.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.controllers.UserManager;
 
 

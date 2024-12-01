@@ -1,4 +1,4 @@
-package edu.northeastern.numad24fa_group15project;
+package edu.northeastern.numad24fa_group15project.fragments;
 
 import android.os.Bundle;
 
@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.adapters.StumbleEventAdapter;
-import edu.northeastern.numad24fa_group15project.models.Event;
-import edu.northeastern.numad24fa_group15project.views.StumbleViewModel;
+import edu.northeastern.numad24fa_group15project.viewmodels.StumbleViewModel;
 
 public class StumbleFragment extends Fragment {
     private StumbleViewModel viewModel;

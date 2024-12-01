@@ -1,12 +1,10 @@
-package edu.northeastern.numad24fa_group15project.views;
+package edu.northeastern.numad24fa_group15project.viewmodels;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.google.firebase.Timestamp;
 
 import java.util.List;
 

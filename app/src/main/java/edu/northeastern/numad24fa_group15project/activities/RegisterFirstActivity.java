@@ -1,4 +1,4 @@
-package edu.northeastern.numad24fa_group15project;
+package edu.northeastern.numad24fa_group15project.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.controllers.UserManager;
 import edu.northeastern.numad24fa_group15project.models.User;
 
