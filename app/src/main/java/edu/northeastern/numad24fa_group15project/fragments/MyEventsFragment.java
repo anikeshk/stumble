@@ -21,6 +21,7 @@ import android.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 
 import edu.northeastern.numad24fa_group15project.R;
@@ -97,7 +98,7 @@ public class MyEventsFragment extends Fragment {
     }
 
     private void openEventDetails(Event event) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_event_image, null);
 
@@ -108,7 +109,6 @@ public class MyEventsFragment extends Fragment {
         builder.setTitle(event.getTitle());
         builder.setPositiveButton("Close", (dialog, which) -> dialog.dismiss());
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        builder.show();
     }
 }
