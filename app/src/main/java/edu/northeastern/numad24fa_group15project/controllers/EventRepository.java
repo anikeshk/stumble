@@ -112,7 +112,6 @@ public class EventRepository {
         //Log.v("cc", userManager.getCurrentUser().getEmail());
         return db.collection(TICKETS_COLLECTION)
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
-                .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .continueWithTask(task -> {
                     if (!task.isSuccessful()) {
@@ -125,6 +124,7 @@ public class EventRepository {
                     }
                     return db.collection(EVENTS_COLLECTION)
                             .whereIn(FieldPath.documentId(), eventIds)
+                            .orderBy("dateTime", Query.Direction.ASCENDING)
                             .get();
                 });
     }

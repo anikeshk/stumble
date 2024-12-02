@@ -14,6 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.activities.RegisterSecondActivity;
@@ -47,12 +52,30 @@ public class EventDetailsFragment extends Fragment {
 
         EventRepository eventRepository = new EventRepository();
 
-        // Populate views with event details
         TextView titleView = view.findViewById(R.id.stumble_event_title);
         titleView.setText(event.getTitle());
 
         TextView desc = view.findViewById(R.id.stumble_event_description);
         desc.setText(event.getDescription());
+
+        TextView organizer = view.findViewById(R.id.stumble_event_organizer);
+        organizer.setText(event.getOrganizer());
+
+        TextView location = view.findViewById(R.id.stumble_event_location);
+        location.setText(event.getLocation());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(event.getDateTime().toDate());
+        TextView date = view.findViewById(R.id.stumble_event_date);
+        date.setText(formattedDate);
+
+        ChipGroup interestsChipGroup = view.findViewById(R.id.stumble_event_interests);
+        interestsChipGroup.removeAllViews();
+        for (String interest : event.getInterests()) {
+            Chip chip = new Chip(getContext());
+            chip.setText(interest);
+            interestsChipGroup.addView(chip);
+        }
 
         ImageView imageView = view.findViewById(R.id.stumble_event_image);
         Glide.with(getContext())

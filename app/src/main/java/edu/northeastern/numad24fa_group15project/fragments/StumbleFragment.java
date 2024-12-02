@@ -11,10 +11,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.adapters.StumbleEventAdapter;
+import edu.northeastern.numad24fa_group15project.controllers.EventRepository;
 import edu.northeastern.numad24fa_group15project.viewmodels.StumbleViewModel;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class StumbleFragment extends Fragment {
     private StumbleViewModel viewModel;
@@ -29,11 +33,15 @@ public class StumbleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ScrollingPagerIndicator indicator = view.findViewById(R.id.indicator);
+
         viewPager = view.findViewById(R.id.viewPager);
         viewModel = new ViewModelProvider(this).get(StumbleViewModel.class);
 
         adapter = new StumbleEventAdapter();
         viewPager.setAdapter(adapter);
+        indicator.attachToPager(viewPager);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

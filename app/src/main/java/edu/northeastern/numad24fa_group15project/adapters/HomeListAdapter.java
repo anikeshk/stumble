@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.models.Event;
@@ -64,7 +66,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.EventV
             eventTitle = itemView.findViewById(R.id.home_list_title);
             eventOrganizer = itemView.findViewById(R.id.home_list_organizer);
             eventLocation = itemView.findViewById(R.id.home_list_location);
-            //eventDescription = itemView.findViewById(R.id.stumble_event_description);
+            eventDate = itemView.findViewById(R.id.home_list_date);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
@@ -76,11 +78,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.EventV
 
         void bind(Event event) {
             eventTitle.setText(event.getTitle());
-            //eventImage.setImageResource(R.drawable.event_demo);
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
-//            String formattedDate = dateFormat.format(event.getDateTime().toDate());
-//            eventDate.setText(formattedDate);
-//
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
+            String formattedDate = dateFormat.format(event.getDateTime().toDate());
+            eventDate.setText(formattedDate);
+
             eventLocation.setText(event.getLocation());
             eventOrganizer.setText(event.getOrganizer());
             Glide.with(itemView.getContext())
@@ -88,11 +90,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.EventV
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_background)
                     .into(eventImage);
-//            Glide.with(itemView.getContext())
-//                    .load(event.getImageUrl())
-//                    .placeholder(R.drawable.placeholder_image)
-//                    .error(R.drawable.error_image)
-//                    .into(eventImage);
         }
     }
 }

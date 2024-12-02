@@ -48,5 +48,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.5")
+
 
 }

@@ -3,7 +3,6 @@ package edu.northeastern.numad24fa_group15project.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +19,8 @@ import java.util.Locale;
 import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.models.Event;
 
-public class HomeCarouselAdapter extends RecyclerView.Adapter<HomeCarouselAdapter.EventViewHolder> {
+public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.EventViewHolder>{
+
     private List<Event> events = new ArrayList<>();
     private OnItemClickListener listener;
 
@@ -35,8 +35,8 @@ public class HomeCarouselAdapter extends RecyclerView.Adapter<HomeCarouselAdapte
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_carousel, parent, false);
-        return new HomeCarouselAdapter.EventViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket_list, parent, false);
+        return new EventViewHolder(view);
     }
 
     @Override
@@ -56,10 +56,18 @@ public class HomeCarouselAdapter extends RecyclerView.Adapter<HomeCarouselAdapte
 
     class EventViewHolder extends RecyclerView.ViewHolder {
         private ImageView eventImage;
+        private TextView eventTitle;
+        private TextView eventDate;
+        private TextView eventLocation;
+        private TextView eventOrganizer;
 
         EventViewHolder(@NonNull View itemView) {
             super(itemView);
-            eventImage = itemView.findViewById(R.id.carousel_image_view);
+            eventImage = itemView.findViewById(R.id.home_list_image);
+            eventTitle = itemView.findViewById(R.id.home_list_title);
+            eventOrganizer = itemView.findViewById(R.id.home_list_organizer);
+            eventLocation = itemView.findViewById(R.id.home_list_location);
+            eventDate = itemView.findViewById(R.id.home_list_date);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
@@ -70,6 +78,14 @@ public class HomeCarouselAdapter extends RecyclerView.Adapter<HomeCarouselAdapte
         }
 
         void bind(Event event) {
+            eventTitle.setText(event.getTitle());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
+            String formattedDate = dateFormat.format(event.getDateTime().toDate());
+            eventDate.setText(formattedDate);
+
+            eventLocation.setText(event.getLocation());
+            eventOrganizer.setText(event.getOrganizer());
             Glide.with(itemView.getContext())
                     .load(event.getImageUrl())
                     .placeholder(R.drawable.ic_launcher_background)
