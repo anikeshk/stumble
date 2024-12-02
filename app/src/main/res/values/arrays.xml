@@ -24,4 +24,12 @@
         <item>Gluten Free</item>
         <item>Nut Free</item>
     </string-array>
+    <string-array name="filters">
+        <item>This Week</item>
+        <item>Carnival 2024</item>
+        <item>Tournaments</item>
+        <item>From Student Life</item>
+        <item>Career</item>
+        <item>Fun</item>
+    </string-array>
 </resources>

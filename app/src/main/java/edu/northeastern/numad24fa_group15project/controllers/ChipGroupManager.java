@@ -12,7 +12,8 @@ public class ChipGroupManager {
 
     public enum ChipGroupType {
         INTERESTS,
-        DIETARY_RESTRICTIONS
+        DIETARY_RESTRICTIONS,
+        FILTERS
     }
 
     public ChipGroupManager(Context context) {

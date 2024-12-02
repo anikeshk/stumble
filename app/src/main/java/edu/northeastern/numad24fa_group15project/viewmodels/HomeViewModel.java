@@ -51,4 +51,17 @@ public class HomeViewModel extends ViewModel {
                     isLoadingRecEvents.setValue(false);
                 });
     }
+
+    public void loadFilterEvents(List<String> selectedFilters) {
+        isLoadingListEvents.setValue(true);
+        eventRepository.getFilteredEvents(selectedFilters)
+                .addOnSuccessListener(querySnapshot -> {
+                    List<Event> eventList = querySnapshot.toObjects(Event.class);
+                    listEvents.setValue(eventList);
+                    isLoadingListEvents.setValue(false);
+                })
+                .addOnFailureListener(e -> {
+                    isLoadingListEvents.setValue(false);
+                });
+    }
 }
