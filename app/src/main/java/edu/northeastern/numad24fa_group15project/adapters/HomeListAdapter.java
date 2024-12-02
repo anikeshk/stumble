@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +31,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.EventV
 
     @NonNull
     @Override
-    public HomeListAdapter.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_list, parent, false);
-        return new HomeListAdapter.EventViewHolder(view);
+        return new EventViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeListAdapter.EventViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         holder.bind(events.get(position));
     }
 
@@ -74,14 +76,18 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.EventV
 
         void bind(Event event) {
             eventTitle.setText(event.getTitle());
-            eventImage.setImageResource(R.drawable.event_demo);
+            //eventImage.setImageResource(R.drawable.event_demo);
 //            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
 //            String formattedDate = dateFormat.format(event.getDateTime().toDate());
 //            eventDate.setText(formattedDate);
 //
             eventLocation.setText(event.getLocation());
             eventOrganizer.setText(event.getOrganizer());
-
+            Glide.with(itemView.getContext())
+                    .load(event.getImageUrl())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(eventImage);
 //            Glide.with(itemView.getContext())
 //                    .load(event.getImageUrl())
 //                    .placeholder(R.drawable.placeholder_image)

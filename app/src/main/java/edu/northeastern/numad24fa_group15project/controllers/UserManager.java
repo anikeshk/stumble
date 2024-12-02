@@ -1,5 +1,7 @@
 package edu.northeastern.numad24fa_group15project.controllers;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;

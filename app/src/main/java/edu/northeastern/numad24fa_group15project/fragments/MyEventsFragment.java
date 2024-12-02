@@ -52,7 +52,7 @@ public class MyEventsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.v("MYEventsssssssssssssssxxccvb", "meow");
         myEventsViewModel = new ViewModelProvider(this).get(MyEventsViewModel.class);
 
         myEventsRecyclerView = view.findViewById(R.id.my_events_recycler_view);
@@ -62,6 +62,7 @@ public class MyEventsFragment extends Fragment {
         myEventsRecyclerView.setAdapter(homeListAdapter);
 
         myEventsViewModel.getTicketEvents().observe(getViewLifecycleOwner(), events -> {
+            Log.v("MYEventsssssssssss", events.toString());
             homeListAdapter.setEvents(events);
         });
 

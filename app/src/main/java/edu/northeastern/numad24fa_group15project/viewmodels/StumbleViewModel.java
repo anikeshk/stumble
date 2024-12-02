@@ -30,7 +30,7 @@ public class StumbleViewModel extends ViewModel {
 
     public void loadEvents() {
         isLoading.setValue(true);
-        eventRepository.getAllEvents()
+        eventRepository.getStumbleEvents()
                 .addOnSuccessListener(querySnapshot -> {
                     List<Event> eventList = querySnapshot.toObjects(Event.class);
                     Log.v("MEGGGGGGGG", eventList.toString());

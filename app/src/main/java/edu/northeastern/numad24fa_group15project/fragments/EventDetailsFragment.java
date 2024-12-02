@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 
 import edu.northeastern.numad24fa_group15project.R;
 import edu.northeastern.numad24fa_group15project.activities.RegisterSecondActivity;
@@ -51,8 +54,13 @@ public class EventDetailsFragment extends Fragment {
         TextView desc = view.findViewById(R.id.stumble_event_description);
         desc.setText(event.getDescription());
 
-//        // ... set other event details ...
-//
+        ImageView imageView = view.findViewById(R.id.stumble_event_image);
+        Glide.with(getContext())
+                    .load(event.getImageUrl())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(imageView);
+
         Button registerButton = view.findViewById(R.id.stumble_event_register_button);
         registerButton.setOnClickListener(v -> {
             eventRepository.bookTicket(event.getId())

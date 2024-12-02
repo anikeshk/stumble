@@ -31,11 +31,13 @@ public class EventRepository {
     private static final String SAVED_COLLECTION = "saved";
     private final FirebaseFirestore db;
     private final FirebaseAuth mAuth;
+    private UserManager userManager;
 
 
     public EventRepository() {
         this.db = FirebaseFirestore.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
+        this.userManager = UserManager.getInstance();
     }
 
     public Task<QuerySnapshot> getAllEvents() {
@@ -44,11 +46,21 @@ public class EventRepository {
 
     public Task<QuerySnapshot> getRecommendedEvents() {
         Query query = db.collection(EVENTS_COLLECTION)
-                .whereEqualTo("isRecommended", true);
+                .whereEqualTo("isRecommended", true)
+                .orderBy("dateTime", Query.Direction.ASCENDING);
+        return query.get();
+    }
+
+    public Task<QuerySnapshot> getStumbleEvents() {
+        Query query = db.collection(EVENTS_COLLECTION)
+                .whereEqualTo("isRecommended", false)
+                .limit(5)
+                .orderBy("dateTime", Query.Direction.ASCENDING);
         return query.get();
     }
 
     public Task<QuerySnapshot> getTicketEvents() {
+        //Log.v("cc", userManager.getCurrentUser().getEmail());
         return db.collection(TICKETS_COLLECTION)
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
                 .orderBy("createdAt", Query.Direction.DESCENDING)
@@ -57,13 +69,11 @@ public class EventRepository {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
-
                     List<String> eventIds = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Ticket ticket = document.toObject(Ticket.class);
                         eventIds.add(ticket.getEventId());
                     }
-
                     return db.collection(EVENTS_COLLECTION)
                             .whereIn(FieldPath.documentId(), eventIds)
                             .get();
@@ -75,8 +85,7 @@ public class EventRepository {
         Map<String, Object> ticket = new HashMap<>();
         ticket.put("eventId", eventId);
         ticket.put("userId", mAuth.getCurrentUser().getUid());
-        ticket.put("bookingDate", FieldValue.serverTimestamp());
-
+        ticket.put("createdAt", FieldValue.serverTimestamp());
         return newTicketRef.set(ticket);
     }
 }

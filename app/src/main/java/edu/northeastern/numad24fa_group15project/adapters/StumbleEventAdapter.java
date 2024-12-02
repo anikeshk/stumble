@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,11 @@ public class StumbleEventAdapter extends RecyclerView.Adapter<StumbleEventAdapte
 
             //eventLocation.setText(event.getLocation());
             eventDescription.setText(event.getDescription());
-
+            Glide.with(itemView.getContext())
+                    .load(event.getImageUrl())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(eventImage);
 //            Glide.with(itemView.getContext())
 //                    .load(event.getImageUrl())
 //                    .placeholder(R.drawable.placeholder_image)
