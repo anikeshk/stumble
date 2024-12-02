@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,7 +98,8 @@ public class StumbleEventAdapter extends RecyclerView.Adapter<StumbleEventAdapte
             registerButton.setOnClickListener(v -> {
                 eventRepository.bookTicket(event.getId())
                         .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(v.getContext(), "Ticket booked!", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(v.getRootView(), "RSVP confirmed!", Snackbar.LENGTH_SHORT)
+                                    .show();
                         })
                         .addOnFailureListener(e -> {
 

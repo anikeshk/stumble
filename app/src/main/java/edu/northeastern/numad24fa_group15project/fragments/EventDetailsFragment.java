@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -88,7 +89,8 @@ public class EventDetailsFragment extends Fragment {
         registerButton.setOnClickListener(v -> {
             eventRepository.bookTicket(event.getId())
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(getActivity(), "Ticket booked!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(v.getRootView(), "RSVP confirmed!", Snackbar.LENGTH_SHORT)
+                                .show();
                     })
                     .addOnFailureListener(e -> {
 
