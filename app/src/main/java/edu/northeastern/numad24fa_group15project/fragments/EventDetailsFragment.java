@@ -108,9 +108,12 @@ public class EventDetailsFragment extends Fragment {
     }
 
     public void shareEvent(Event event) {
-        String shareText = "Hey! Check out this event, " + event.getTitle() + "!\n" +
-                "It's on " + event.getDateTime() + ".\n\n" +
-                event.getImageUrl();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(event.getDateTime().toDate());
+
+        String shareText = "Hey! Check out this event, " + event.getTitle() + " in the Stumble app!\n" +
+                "It's on " + formattedDate + ". Let's go!";
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");

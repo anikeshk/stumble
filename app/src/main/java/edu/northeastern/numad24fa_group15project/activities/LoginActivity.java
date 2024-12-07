@@ -2,6 +2,8 @@ package edu.northeastern.numad24fa_group15project.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -41,15 +44,17 @@ public class LoginActivity extends AppCompatActivity {
         String email = Objects.requireNonNull(loginEmail.getEditText()).getText().toString().trim();
         String password = Objects.requireNonNull(loginPassword.getEditText()).getText().toString().trim();
 
+        View rootLayout = findViewById(R.id.loginEmail);
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter a valid email and password!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(rootLayout,"Please enter a valid email and password!", Snackbar.LENGTH_SHORT)
+                    .show();
             return;
         }
 
         userManager.loginUser(email, password, new UserManager.OnLoginListener() {
             @Override
             public void onSuccess(User user) {
-                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                 startActivity(intent);
                 finish();

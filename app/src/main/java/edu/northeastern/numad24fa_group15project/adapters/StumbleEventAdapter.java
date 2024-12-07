@@ -1,5 +1,7 @@
 package edu.northeastern.numad24fa_group15project.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,7 @@ public class StumbleEventAdapter extends RecyclerView.Adapter<StumbleEventAdapte
         private TextView eventDescription;
         private ChipGroup interestsChipGroup;
         private Button registerButton;
+        private Button shareButton;
 
         EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +72,7 @@ public class StumbleEventAdapter extends RecyclerView.Adapter<StumbleEventAdapte
             eventDescription = itemView.findViewById(R.id.stumble_event_description);
             interestsChipGroup = itemView.findViewById(R.id.stumble_event_interests);
             registerButton = itemView.findViewById(R.id.stumble_event_register_button);
+            shareButton = itemView.findViewById(R.id.stumble_event_share_button);
         }
 
         void bind(Event event) {
@@ -104,6 +108,17 @@ public class StumbleEventAdapter extends RecyclerView.Adapter<StumbleEventAdapte
                         .addOnFailureListener(e -> {
 
                         });
+            });
+
+            shareButton.setOnClickListener(v -> {
+                String shareText = "Hey! Check out this event, " + event.getTitle() + " in the Stumble app!\n" +
+                        "It's on " + formattedDate + ". Let's go!";
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+               itemView.getContext().startActivity(Intent.createChooser(shareIntent, "Share event via"));
             });
         }
     }

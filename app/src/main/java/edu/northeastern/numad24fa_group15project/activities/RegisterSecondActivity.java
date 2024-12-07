@@ -3,6 +3,7 @@ package edu.northeastern.numad24fa_group15project.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
@@ -64,6 +66,12 @@ public class RegisterSecondActivity extends AppCompatActivity {
         String school = Objects.requireNonNull(registerSchool.getEditText()).getText().toString().trim();
         Map<String, List<String>> allSelections = chipGroupManager.getAllSelections();
 
+
+        if (school.isEmpty()) {
+            Toast.makeText(this, "Please select a school!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Map<String, Object> additionalInfo = new HashMap<>();
         additionalInfo.put("school", school);
         additionalInfo.put("interests", allSelections.get("interests"));
@@ -72,14 +80,15 @@ public class RegisterSecondActivity extends AppCompatActivity {
         userManager.updateUserData(additionalInfo, new UserManager.OnUserUpdateListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(RegisterSecondActivity.this, "Setup complete!", Toast.LENGTH_SHORT).show();
+                View rootLayout = findViewById(R.id.registerSchool);
+                Snackbar.make(rootLayout,"Preferences saved.", Snackbar.LENGTH_SHORT)
+                        .show();
                 Intent intent = new Intent(RegisterSecondActivity.this, BaseActivity.class);
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(String error) {
-                Log.v("FIRESTORE", error);
                 Toast.makeText(RegisterSecondActivity.this, "Failed to save user info: " + error, Toast.LENGTH_SHORT).show();
             }
         });
