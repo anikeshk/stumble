@@ -1,5 +1,6 @@
 package edu.northeastern.numad24fa_group15project.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,24 @@ public class EventDetailsFragment extends Fragment {
                     });
         });
 
+        Button shareButton = view.findViewById(R.id.stumble_event_share_button);
+        shareButton.setOnClickListener(v -> {
+            shareEvent(event);
+        });
+
+
         return view;
+    }
+
+    public void shareEvent(Event event) {
+        String shareText = "Hey! Check out this event, " + event.getTitle() + "!\n" +
+                "It's on " + event.getDateTime() + ".\n\n" +
+                event.getImageUrl();
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+        startActivity(Intent.createChooser(shareIntent, "Share event via"));
     }
 }

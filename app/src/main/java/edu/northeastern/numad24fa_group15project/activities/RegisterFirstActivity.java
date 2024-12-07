@@ -22,7 +22,7 @@ public class RegisterFirstActivity extends AppCompatActivity {
 
     private UserManager userManager;
     private TextInputLayout registerFirstName, registerLastName, registerPhoneNumber, registerEmail, registerPassword, registerPasswordConfirm;
-    private Button registerNextButton;
+    private Button registerNextButton, registerCancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,14 @@ public class RegisterFirstActivity extends AppCompatActivity {
         registerPassword = findViewById(R.id.registerPassword);
         registerPasswordConfirm = findViewById(R.id.registerPasswordConfirm);
         registerNextButton = findViewById(R.id.registerNextButton);
+        registerCancelButton = findViewById(R.id.registerCancelButton);
 
         registerNextButton.setOnClickListener(v -> attemptRegistration());
+        registerCancelButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterFirstActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void attemptRegistration() {

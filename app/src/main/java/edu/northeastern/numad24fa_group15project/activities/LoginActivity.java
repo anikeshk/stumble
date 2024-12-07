@@ -2,7 +2,9 @@ package edu.northeastern.numad24fa_group15project.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private UserManager userManager;
     private TextInputLayout loginEmail, loginPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
