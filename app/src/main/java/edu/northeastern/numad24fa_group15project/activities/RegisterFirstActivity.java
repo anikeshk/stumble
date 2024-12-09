@@ -80,9 +80,7 @@ public class RegisterFirstActivity extends AppCompatActivity {
                 userManager.updateUserData(additionalInfo, new UserManager.OnUserUpdateListener() {
                     @Override
                     public void onSuccess() {
-                        View rootLayout = findViewById(R.id.registerFirstName);
-                        Snackbar.make(rootLayout,"Registration successful.", Snackbar.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(RegisterFirstActivity.this, "Registration complete!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterFirstActivity.this, RegisterSecondActivity.class);
                         startActivity(intent);
                     }

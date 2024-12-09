@@ -80,9 +80,7 @@ public class RegisterSecondActivity extends AppCompatActivity {
         userManager.updateUserData(additionalInfo, new UserManager.OnUserUpdateListener() {
             @Override
             public void onSuccess() {
-                View rootLayout = findViewById(R.id.registerSchool);
-                Snackbar.make(rootLayout,"Preferences saved.", Snackbar.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(RegisterSecondActivity.this, "Preferences saved!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterSecondActivity.this, BaseActivity.class);
                 startActivity(intent);
             }
