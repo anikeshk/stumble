@@ -7,4 +7,4 @@ Stumble is an Android app designed for event discovery and ticket booking, tailo
 
 ![](./imgs/main.png)
 
-Learn about how transformed the idea behind Stumble into a fully functional app here 👉 [anikeshk.com/project/stumble](https://anikeshk.com/project/stumble/)
+Learn about how I transformed the idea behind Stumble into a fully functional app here 👉 [anikeshk.com/project/stumble](https://anikeshk.com/project/stumble/)
